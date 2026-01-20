@@ -17,7 +17,25 @@ function Board() {
         tasks: [
             { id: 3, title: "Build Kanban UI" },
         ],
-    }
+    },
+    {
+        id: 3,
+        title: "Done",
+        tasks: [
+            {id: 4, title: "Setup project" },
+        ],
+    },
 
-    ])
+    ]);
+
+    return (
+        <div className="flex gap-6 p-6 overflow-x-auto">
+            {columns.map((column) => (
+
+                <Column key={column.id} column={column} />
+            ))}
+        </div>
+    );
 }
+
+export default Board;
