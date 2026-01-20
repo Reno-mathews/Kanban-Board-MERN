@@ -6,13 +6,18 @@ function Board() {
     {
         id: 1,
         title: "To Do",
-        tasks: [
+        tasks: [ 
             { id: 1, title: "Study React"},
             { id: 2, title: "Study Express"},
         ],
     },
     {
-        
+        id : 2,
+        title: "In Progress",
+        tasks: [
+            { id: 3, title: "Build Kanban UI" },
+        ],
     }
+
     ])
 }
