@@ -37,8 +37,24 @@ function AuthForm ({
 
                             <button 
                                 className=""
+                                type="submit"
+                                >
+                                    {isSignup ? "Signup": "Login"}
+                            </button>
                     </form>
+
+                    <p className="text-center">
+                        {isSignup? "Already have an account?" : "Don't have an account"}
+                        <button 
+                            className=""
+                            onClick={() => setIsSignUp(!isSignup)}
+                        >
+                            {isSignup? "Login" : "Signup"}
+                        </button>
+                    </p>
             </div>
         </div>
-    )
+    );
 }
+
+export default Authform;
