@@ -34,6 +34,34 @@ function Board() {
 
     const [searchQuery, setSearchQuery] = useState("");
 
+            {/* Logic for adding tasks*/}
+
+                const handleAddTask = () => {
+                if (!newTaskTitle.trim()) return;
+
+                const newTask = {
+                    id: Date.now(),
+                    title: newTaskTitle,
+                };
+
+                const updatedColumns = columns.map((column) => {
+                    if (column.id === selectedColumnId) {
+                        return {
+                            ...column,
+                            tasks: [...column.tasks, newTask]
+                        };
+                    }
+
+                    return column;
+                });
+
+                setColumns(updatedColumns);
+                setNewTaskTitle("");
+                setSelectedColumnId(1);
+                setIsModalOpen(false);
+            };
+
+
     return (
         <div className="p-6">
             {/* Search Bar */}
@@ -72,7 +100,7 @@ function Board() {
                         > 
                             {columns.map((column) => (
                                 <option key={column.id} value={column.id}>
-                                    {column}
+                                    {column.title}
                                 </option>
                             ))}
                             </select>
@@ -104,33 +132,7 @@ function Board() {
                         task.title.toLowerCase().includes(searchQuery.toLowerCase())
                 );
 
-            {/* Logic for adding tasks*/}
-
-            const handleAddTask = () => {
-                if (!newTaskTitle.trim()) return;
-
-                const newTask = {
-                    id: Date.now(),
-                    title: newTaskTitle,
-                };
-
-                const updatedColumns = columns.map((column) => {
-                    if (column.id === selectedColumnId) {
-                        return {
-                            ...column,
-                            tasks: [...column.tasks, newTask]
-                        };
-                    }
-
-                    return column;
-                });
-
-                setColumns(updatedColumns);
-                setNewTaskTitle("");
-                setSelectedColumnId(1);
-                setIsModalOpen(false);
-            };
-
+    
             return (
 
                 <Column 
