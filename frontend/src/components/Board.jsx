@@ -76,7 +76,7 @@ function Board() {
                                 </option>
                             ))}
                             </select>
-            ))}
+        
 
                         <div className="flex justify-end gap-2">
                             <button 
@@ -87,6 +87,7 @@ function Board() {
                             </button>
 
                             <button 
+                                onClick={handleAddTask}
                                 className="px-3 py-1 bg-blue-600 rounded"
                             >
                                 Add
@@ -102,6 +103,33 @@ function Board() {
                     const filteredTasks = column.tasks.filter((task) =>
                         task.title.toLowerCase().includes(searchQuery.toLowerCase())
                 );
+
+            {/* Logic for adding tasks*/}
+
+            const handleAddTask = () => {
+                if (!newTaskTitle.trim()) return;
+
+                const newTask = {
+                    id: Date.now(),
+                    title: newTaskTitle,
+                };
+
+                const updatedColumns = columns.map((column) => {
+                    if (column.id === selectedColumnId) {
+                        return {
+                            ...column,
+                            tasks: [...column.tasks, newTask]
+                        };
+                    }
+
+                    return column;
+                });
+
+                setColumns(updatedColumns);
+                setNewTaskTitle("");
+                setSelectedColumnId(1);
+                setIsModalOpen(false);
+            };
 
             return (
 
