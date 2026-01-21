@@ -4,6 +4,8 @@ import SearchBar from "./SearchBar";
 
 function Board() {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [newTaskTitle, setNewTaskTitle] = useState("");
+    const [selectedColumnId, setSelectedColumnId] = useState(1);
     const [columns, setColumns] = useState([
     {
         id: 1,
@@ -57,9 +59,24 @@ function Board() {
 
                         <input
                             type="text"
-                            placeholder="Task title"
-                            clasName="w-full p-2 rounded bg-gray-700 mb-4"
+                            placeholder="Task title..."
+                            value={newTaskTitle}
+                            onChange={(e) => setNewTaskTitle(e.target.value)}
+                            className="w-full p-2 rounded bg-gray-700 mb-4"
                         />
+
+                        <select 
+                            value={selectedColumnId}
+                            onChange={(e) => setSelectedColumnId(Number(e.target.value))}
+                            className="w-full p-2 rounded bg-gray-700 mb-4"
+                        > 
+                            {columns.map((column) => (
+                                <option key={column.id} value={column.id}>
+                                    {column}
+                                </option>
+                            ))}
+                            </select>
+            ))}
 
                         <div className="flex justify-end gap-2">
                             <button 
