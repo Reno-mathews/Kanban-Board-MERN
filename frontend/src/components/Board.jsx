@@ -3,6 +3,7 @@ import Column from "./Column";
 import SearchBar from "./SearchBar";
 
 function Board() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [columns, setColumns] = useState([
     {
         id: 1,
@@ -37,6 +38,12 @@ function Board() {
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
             />
+            <button 
+                onClick={() => setIsModalOpen(true)}
+                className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded mb-4"
+            >
+                + Add Task
+            </button>
         <div className="flex gap-6 p-6 overflow-x-auto">
             {columns.map((column) => {
                 const filteredTasks = column.tasks.filter((task) =>
