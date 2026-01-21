@@ -34,21 +34,26 @@ function Board() {
 
     return (
         <div className="p-6">
+            {/* Search Bar */}
             <SearchBar
                 searchQuery={searchQuery}
                 setSearchQuery={setSearchQuery}
             />
+
+            {/* Add Task Button */}
             <button 
                 onClick={() => setIsModalOpen(true)}
                 className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded mb-4"
             >
                 + Add Task
             </button>
-        <div className="flex gap-6 p-6 overflow-x-auto">
-            {columns.map((column) => {
-                const filteredTasks = column.tasks.filter((task) =>
-                    task.title.toLowerCase().includes(searchQuery.toLowerCase())
-            );
+
+        {/* Display columns */}
+            <div className="flex gap-6 p-6 overflow-x-auto">
+                {columns.map((column) => {
+                    const filteredTasks = column.tasks.filter((task) =>
+                        task.title.toLowerCase().includes(searchQuery.toLowerCase())
+                );
 
             return (
 
