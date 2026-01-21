@@ -1,4 +1,4 @@
-import TaskCard from "./TaskCard";
+import TaskCard from "./TaskCArd";
 
 function Column({ column }) {
     return(

@@ -1,4 +1,4 @@
-function Pagination ({ currentPAge, totalPages, setCurrentPage }) {
+function Pagination ({ currentPage, totalPages, setCurrentPage }) {
     return (
         <div className="flex gap-3 items-center justify-center mt-4">
             <button 
@@ -15,7 +15,7 @@ function Pagination ({ currentPAge, totalPages, setCurrentPage }) {
 
             <button 
                 onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
-                disabled={currentPAge === totalPages}
+                disabled={currentPage === totalPages}
                 className="px-3 py-1 bg-gray-700 rounded disabled:opacity-50"
             >
                 Next

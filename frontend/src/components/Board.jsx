@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Column from "./Column";
+import SearchBar from "./SearchBar";
 
 function Board() {
     const [columns, setColumns] = useState([
@@ -28,13 +29,30 @@ function Board() {
 
     ]);
 
-    return (
-        <div className="flex gap-6 p-6 overflow-x-auto">
-            {columns.map((column) => (
+    const [searchQuery, setSearchQuery] = useState("");
 
-                <Column key={column.id} column={column} />
-            ))}
+    return (
+        <div className="p-6">
+            <SearchBar
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+            />
+        <div className="flex gap-6 p-6 overflow-x-auto">
+            {columns.map((column) => {
+                const filteredTasks = column.tasks.filter((task) =>
+                    task.title.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+
+            return (
+
+                <Column 
+                key={column.id} 
+                column={{ ...column, tasks: filteredTasks}} 
+                />
+            );
+})}
         </div>
+    </div>
     );
 }
 
