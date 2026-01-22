@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Column from "./Column";
 import SearchBar from "./SearchBar";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import { DnDContext, DndContext, closestCenter } from "@dnd-kit/core";
 
 function Board() {
     const [isModalOpen, setIsModalOpen] = useState(false);

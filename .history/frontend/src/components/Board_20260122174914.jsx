@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Column from "./Column";
 import SearchBar from "./SearchBar";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import { DnDContext, DndContext, closestCenter } from "@dnd-kit/core";
 
 function Board() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -117,7 +117,6 @@ function Board() {
     });
 
     setColumns(newColumns);
-};
     return (
         <div className="p-6 min-h-screen bg-gradient-to-br from-slate-900 to-gray-900 text-white">
             {/* Search Bar */}

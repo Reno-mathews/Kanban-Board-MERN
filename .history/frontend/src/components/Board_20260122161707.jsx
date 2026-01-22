@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Column from "./Column";
 import SearchBar from "./SearchBar";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import { DnDContext, DndContext, closestCenter } from "@dnd-kit/core";
 
 function Board() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -63,61 +63,8 @@ function Board() {
             };
 
     const handleDragEnd = (event) => {
-        const { active, over } = event;
-
-        if(!over) return;
-
-        const activeId = active.id;
-        const overId = over.id;
-
-        if (activeId === overId) return;
-
-        let sourceColumn;
-        let destinationColumn;
-        let movedTask;
-
-        const updatedColumns = columns.map((column => {
-            const taskIndex = column.tasks.findIndex(
-                (task) => task.id === activeId
-            );
-
-            if (taskIndex !== -1) {
-                sourceColumn = column.id;
-                movedTask = column.tasks[taskIndex];
-            }
-
-            return {
-                ...column,
-                tasks: column.tasks.filter((task) => task.id !== activeId),
-            };
-        }
-    
-    return column;
-
-    });
-
-    const finalColumns = updatedColumn.map((column) => {
-        if (column.tasks.some((task) => task.id === overId)) {
-            destinationColumn = column.id;
-        }
-
-        return column;
-    });
-
-    const targetColumnId = destinationColumn || sourceColumn;
-
-    const newColumns = finalColumns.map((column) => {
-        if (column.id === targetColumnId) {
-            return {
-                ...column,
-                tasks: [...column.tasks, movedTask],
-            };
-        }
-        return column;
-    });
-
-    setColumns(newColumns);
-};
+        
+    }
     return (
         <div className="p-6 min-h-screen bg-gradient-to-br from-slate-900 to-gray-900 text-white">
             {/* Search Bar */}
