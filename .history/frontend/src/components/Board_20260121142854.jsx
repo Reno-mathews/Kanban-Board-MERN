@@ -34,7 +34,7 @@ function Board() {
 
     const [searchQuery, setSearchQuery] = useState("");
 
-            
+            {/* Logic for adding tasks*/}
 
                 const handleAddTask = () => {
                 if (!newTaskTitle.trim()) return;
