@@ -25,12 +25,6 @@ function TaskCard({ task, onDelete }) {
         className="bg-gray-700 p-3 rounded shadow hover:bg-gray-600 cursor-pointer transition"
         >
         <p className="text-sm">{task.title}</p>
-        <button 
-            onClick={() => onDelete(task.id)}
-            className="text-red-400 hover:text-red-600"
-        >
-            ✕
-        </button>
         </div>
     );
 }
