@@ -115,10 +115,25 @@ function Board() {
 
             return column;
         });
+        const updatedColumns = columns.map((column => {
+            const taskIndex = column.tasks.findIndex(
+                (task) => task.id === activeId
+            );
 
-        setColumns(finalColumns);
-    };
+            if (taskIndex !== -1) {
+                sourceColumn = column.id;
+                movedTask = column.tasks[taskIndex];
+            }
 
+            return {
+                ...column,
+                tasks: column.tasks.filter((task) => task.id !== activeId),
+            };
+        }
+    
+    return column;
+
+    });
 
     const finalColumns = updatedColumn.map((column) => {
         if (column.tasks.some((task) => task.id === overId)) {
@@ -228,6 +243,6 @@ function Board() {
     </DndContext>
     </div>
     );
-
+}
 
 export default Board;

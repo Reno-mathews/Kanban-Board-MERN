@@ -228,6 +228,6 @@ function Board() {
     </DndContext>
     </div>
     );
-
+}
 
 export default Board;
