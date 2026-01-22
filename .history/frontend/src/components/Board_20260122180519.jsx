@@ -45,25 +45,23 @@ function Board() {
             title: newTaskTitle,
         };
 
-        const updatedColumns = columns.map((column) => {
-            if (column.id === selectedColumnId) {
-                return {
-                    ...column,
-                    tasks: [...column.tasks, newTask]
-                };
-            }
+            const updatedColumns = columns.map((column) => {
+                if (column.id === selectedColumnId) {
+                        return {
+                            ...column,
+                            tasks: [...column.tasks, newTask]
+                        };
+                    }
 
-            return column;
-        });
+                    return column;
+                });
 
-        setColumns(updatedColumns);
-        setNewTaskTitle("");
-        setSelectedColumnId(1);
-        setIsModalOpen(false);
-    };
+                setColumns(updatedColumns);
+                setNewTaskTitle("");
+                setSelectedColumnId(1);
+                setIsModalOpen(false);
+            };
 
-    // Drag logic
-    
     const handleDragEnd = (event) => {
         const { active, over } = event;
 

@@ -60,10 +60,8 @@ function Board() {
         setNewTaskTitle("");
         setSelectedColumnId(1);
         setIsModalOpen(false);
-    };
+            };
 
-    // Drag logic
-    
     const handleDragEnd = (event) => {
         const { active, over } = event;
 
