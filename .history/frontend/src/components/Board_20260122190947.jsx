@@ -78,28 +78,6 @@ function Board() {
         let sourceColumnId = null;
         let destinationColumnId = null;
 
-        //Remove task from source column
-
-        const tempColumns = columns.map((column) => {
-            const taskIndex = column.tasks.findIndex(
-                (task) => task.id === activeId
-            );
-
-        if (taskIndex !== -1) {
-            movedTask = column.tasks[taskIndex];
-            sourceColumnId = column.id;
-            return {
-                ...column,
-                tasks: column.tasks.filter((task) => task.id !== activeId),
-            };
-        }
-        return column;
-        });
-
-        // Find destination column
-        tempColumns.forEach((column) => {
-            if (co)
-        })
         const updatedColumns = columns.map((column => {
             const taskIndex = column.tasks.findIndex(
                 (task) => task.id === activeId
