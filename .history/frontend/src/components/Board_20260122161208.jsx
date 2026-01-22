@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Column from "./Column";
 import SearchBar from "./SearchBar";
-import { DnDContext, DndContext, closestCenter } from "@dnd-kit/core";
+import { DnDContext, closestCenter } from "@dnd-kit/core";
 
 function Board() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -126,10 +126,7 @@ function Board() {
             </div>
             )}
 
-            <DndContext
-                collisionDetection={closestCenter}
-                onDragEnd={handleDragEnd}
-            >
+            {/* Display columns */}
             <div className="flex gap-6 p-6 overflow-x-auto">
                 {columns.map((column) => {
                     const filteredTasks = column.tasks.filter((task) =>
@@ -146,7 +143,6 @@ function Board() {
             );
 })}
         </div>
-    </DndContext>
     </div>
     );
 }
