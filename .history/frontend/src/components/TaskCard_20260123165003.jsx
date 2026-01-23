@@ -23,7 +23,7 @@ function TaskCard({ task, onDelete, onEdit }) {
         style={style}
         {...attributes}
         {...listeners}
-        className="bg-gray-700 p-3 rounded shadow hover:bg-gray-600 cursor-grab transition active-curosr-grabbing"
+        className="bg-gray-700 p-3 rounded shadow hover:bg-gray-600 cursor-grab transition"
         >
         <p className="text-sm">{task.title}</p>
 
