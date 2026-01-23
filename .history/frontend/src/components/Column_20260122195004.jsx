@@ -1,7 +1,7 @@
 import { SortableContext, verticalListSortingStrategy} from "@dnd-kit/sortable";
 import TaskCard from "./TaskCard";
 
-function Column({ column, onDeleteTask }) {
+function Column({ column }) {
     return(
         <div className="bg-gray-800 rounded-lg p-4 w-72 flex-shrink-0">
             <h2 className="text-lg font-semibold mb-4 text-center">

@@ -107,15 +107,6 @@ function Board() {
     setColumns(finalColumns);
   };
 
-  const handleDeleteTask = (taskid) => {
-    const updatedColumns = columns.map((column) => ({
-        ...column,
-        tasks: column.tasks.filter((task) => task.id !== taskId),
-    }));
-
-    setColumns(updatedColumns);
-  };
-
   return (
     <div className="p-6 min-h-screen bg-gradient-to-br from-slate-900 to-gray-900 text-white">
       <SearchBar
@@ -192,7 +183,6 @@ function Board() {
               <Column
                 key={column.id}
                 column={{ ...column, tasks: filteredTasks }}
-                onDeleteTask={handleDeleteTask}
               />
             );
           })}

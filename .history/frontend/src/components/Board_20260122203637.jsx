@@ -192,7 +192,6 @@ function Board() {
               <Column
                 key={column.id}
                 column={{ ...column, tasks: filteredTasks }}
-                onDeleteTask={handleDeleteTask}
               />
             );
           })}
