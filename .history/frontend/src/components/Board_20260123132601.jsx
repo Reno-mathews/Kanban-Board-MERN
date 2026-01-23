@@ -113,7 +113,7 @@ function Board() {
   const handleDeleteTask = (taskid) => {
     const updatedColumns = columns.map((column) => ({
         ...column,
-        tasks: column.tasks.filter((task) => task.id !== taskid),
+        tasks: column.tasks.filter((task) => task.id !== taskid,
     }));
 
     setColumns(updatedColumns);
