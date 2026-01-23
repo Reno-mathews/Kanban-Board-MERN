@@ -38,10 +38,7 @@ function TaskCard({ task, onDelete, onEdit }) {
         </button>
 
         <button 
-            onClick={(e) => {
-                e.stopPropagation();
-                onDelete(task.id);
-            }}
+            onClick={() => onDelete(task.id)}
             className="text-red-400 hover:text-red-600"
         >
             ✕
