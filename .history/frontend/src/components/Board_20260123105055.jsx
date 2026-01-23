@@ -202,7 +202,6 @@ function Board() {
                 key={column.id}
                 column={{ ...column, tasks: filteredTasks }}
                 onDeleteTask={handleDeleteTask}
-                onEditTask={handleEditClick}
               />
             );
           })}

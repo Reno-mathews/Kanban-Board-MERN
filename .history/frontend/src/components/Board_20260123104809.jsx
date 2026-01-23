@@ -119,12 +119,6 @@ function Board() {
     setColumns(updatedColumns);
   };
 
-  const handleEditClick = (task) => {
-    setTaskBeingEdited(task);
-    setEditedTitle(task.title);
-    setIsEditModalOpen(true);
-  };
-
   return (
     <div className="p-6 min-h-screen bg-gradient-to-br from-slate-900 to-gray-900 text-white">
       <SearchBar
@@ -202,7 +196,6 @@ function Board() {
                 key={column.id}
                 column={{ ...column, tasks: filteredTasks }}
                 onDeleteTask={handleDeleteTask}
-                onEditTask={handleEditClick}
               />
             );
           })}
