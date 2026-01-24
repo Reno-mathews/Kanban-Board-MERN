@@ -25,11 +25,32 @@ function Board() {
     editedTitle,
     setEditedTitle,
     handleAddTask,
-    handleDeleteTask,
-    handleEditClick,
-    handleSaveEdit,
   } = useKanbanBoard();
-  
+  // Add task
+  const handleAddTask = () => {
+    if (!newTaskTitle.trim()) return;
+
+    const newTask = {
+      id: Date.now(),
+      title: newTaskTitle,
+    };
+
+    const updatedColumns = columns.map((column) => {
+      if (column.id === selectedColumnId) {
+        return {
+          ...column,
+          tasks: [...column.tasks, newTask],
+        };
+      }
+      return column;
+    });
+
+    setColumns(updatedColumns);
+    setNewTaskTitle("");
+    setSelectedColumnId(1);
+    setIsModalOpen(false);
+  };
+
   // Drag logic
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -82,8 +103,42 @@ function Board() {
     setColumns(finalColumns);
   };
 
-  
-  
+  const handleDeleteTask = (taskid) => {
+    const confirmDelete = window.confirm("Delete this task?");
+
+    if(!confirmDelete) return;
+
+    const updatedColumns = columns.map((column) => ({
+        ...column,
+        tasks: column.tasks.filter((task) => task.id !== taskid),
+    }));
+
+    setColumns(updatedColumns);
+  };
+
+  const handleEditClick = (task) => {
+    setTaskBeingEdited(task);
+    setEditedTitle(task.title);
+    setIsEditModalOpen(true);
+  };
+
+  const handleSaveEdit = () => {
+    if (!editedTitle.trim()) return;
+
+    const updatedColumns = columns.map((column) => ({
+      ...column,
+      tasks: column.tasks.map((task) => 
+      task.id === taskBeingEdited.id
+    ? { ...task, title: editedTitle }
+  : task
+),
+    }));
+
+    setColumns(updatedColumns);
+    setIsEditModalOpen(false);
+    setTaskBeingEdited(null);
+    setEditedTitle("");
+  };
 
   return (
     <div className="p-6 min-h-screen bg-gradient-to-br from-slate-900 to-gray-900 text-white">

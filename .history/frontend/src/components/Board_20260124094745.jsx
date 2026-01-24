@@ -25,9 +25,6 @@ function Board() {
     editedTitle,
     setEditedTitle,
     handleAddTask,
-    handleDeleteTask,
-    handleEditClick,
-    handleSaveEdit,
   } = useKanbanBoard();
   
   // Drag logic
@@ -82,8 +79,42 @@ function Board() {
     setColumns(finalColumns);
   };
 
-  
-  
+  const handleDeleteTask = (taskid) => {
+    const confirmDelete = window.confirm("Delete this task?");
+
+    if(!confirmDelete) return;
+
+    const updatedColumns = columns.map((column) => ({
+        ...column,
+        tasks: column.tasks.filter((task) => task.id !== taskid),
+    }));
+
+    setColumns(updatedColumns);
+  };
+
+  const handleEditClick = (task) => {
+    setTaskBeingEdited(task);
+    setEditedTitle(task.title);
+    setIsEditModalOpen(true);
+  };
+
+  const handleSaveEdit = () => {
+    if (!editedTitle.trim()) return;
+
+    const updatedColumns = columns.map((column) => ({
+      ...column,
+      tasks: column.tasks.map((task) => 
+      task.id === taskBeingEdited.id
+    ? { ...task, title: editedTitle }
+  : task
+),
+    }));
+
+    setColumns(updatedColumns);
+    setIsEditModalOpen(false);
+    setTaskBeingEdited(null);
+    setEditedTitle("");
+  };
 
   return (
     <div className="p-6 min-h-screen bg-gradient-to-br from-slate-900 to-gray-900 text-white">

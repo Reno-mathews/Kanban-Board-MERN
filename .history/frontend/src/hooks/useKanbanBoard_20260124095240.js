@@ -74,24 +74,6 @@ export function useKanbanBoard() {
     setIsEditModalOpen(true);
   };
 
-  const handleSaveEdit = () => {
-    if (!editedTitle.trim()) return;
-
-    const updatedColumns = columns.map((column) => ({
-      ...column,
-      tasks: column.tasks.map((task) => 
-      task.id === taskBeingEdited.id
-    ? { ...task, title: editedTitle }
-  : task
-),
-    }));
-
-    setColumns(updatedColumns);
-    setIsEditModalOpen(false);
-    setTaskBeingEdited(null);
-    setEditedTitle("");
-  };
-
 
     return {
         columns,
@@ -112,8 +94,6 @@ export function useKanbanBoard() {
         setEditedTitle,
         handleAddTask,
         handleDeleteTask,
-        handleEditClick,
-        handleSaveEdit,
     };
 }
 

@@ -112,8 +112,6 @@ export function useKanbanBoard() {
         setEditedTitle,
         handleAddTask,
         handleDeleteTask,
-        handleEditClick,
-        handleSaveEdit,
     };
 }
 
