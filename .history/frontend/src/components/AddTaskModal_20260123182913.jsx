@@ -54,7 +54,5 @@ function AddTaskModal({
             </div>
         </div>
 
-    );
+    )
 }
-
-export default AddTaskModal;
