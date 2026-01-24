@@ -7,24 +7,7 @@ import EditTaskModal from "./EditTaskModal";
 import { useKanbanBoard } from "../hooks/useKanbanBoard";
 
 function Board() {
-  const {
-    columns,
-    setColumns,
-    searchQuery,
-    setSearchQuery,
-    isModalOpen,
-    setIsModalOpen,
-    newTaskTitle,
-    setNewTaskTitle,
-    selectedColumnId,
-    setSelectedColumnId,
-    isEditModalOpen,
-    setIsEditModalOpen,
-    taskBeingEdited,
-    setTaskBeingEdited,
-    editedTitle,
-    setEditedTitle,
-  } = useKanbanBoard();
+
   // Add task
   const handleAddTask = () => {
     if (!newTaskTitle.trim()) return;
