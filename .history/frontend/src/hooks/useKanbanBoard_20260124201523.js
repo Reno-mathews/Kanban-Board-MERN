@@ -195,8 +195,6 @@ setLastDeletedTask(null);
         handleEditClick,
         handleSaveEdit,
         handleDragEnd,
-        lastDeletedTask,
-        undoDelete,
     };
 }
 

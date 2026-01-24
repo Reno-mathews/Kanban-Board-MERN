@@ -92,7 +92,6 @@ export function useKanbanBoard() {
     : column
 )
 );
-setLastDeletedTask(null);
     }
 
   const handleEditClick = (task) => {
@@ -195,8 +194,6 @@ setLastDeletedTask(null);
         handleEditClick,
         handleSaveEdit,
         handleDragEnd,
-        lastDeletedTask,
-        undoDelete,
     };
 }
 

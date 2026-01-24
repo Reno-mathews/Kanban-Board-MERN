@@ -86,13 +86,7 @@ export function useKanbanBoard() {
         const { task, columnId } = lastDeletedTask;
 
         setColumns((prev) =>
-        prev.map((column) =>
-            column.id === columnId
-        ? {...column, tasks: [...column.tasks, task]}
-    : column
-)
-);
-setLastDeletedTask(null);
+        prev.map((column)))
     }
 
   const handleEditClick = (task) => {
@@ -195,8 +189,6 @@ setLastDeletedTask(null);
         handleEditClick,
         handleSaveEdit,
         handleDragEnd,
-        lastDeletedTask,
-        undoDelete,
     };
 }
 
