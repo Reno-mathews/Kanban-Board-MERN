@@ -7,7 +7,7 @@ function Column({ column, onDeleteTask, onEditTask }) {
             <h2 className="text-lg font-semibold mb-4 justify-between items-center">
                 <span>{column.title}</span>
                 <span className="text-sm text-gray-400">
-                    {column.tasks.length}
+                    {columns.tasks.length}
                 </span>
             </h2>
 
