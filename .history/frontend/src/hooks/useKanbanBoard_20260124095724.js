@@ -27,7 +27,7 @@ export function useKanbanBoard() {
     const [newTaskTitle, setNewTaskTitle] = useState("");
     const [selectedColumnId, setSelectedColumnId] = useState(1);
 
-    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [isEditModalOpen, setIsEditModalOpen] = useState(null);
     const [taskBeingEdited, setTaskBeingEdited] = useState(null);
     const [editedTitle, setEditedTitle] = useState("");
 
@@ -92,59 +92,6 @@ export function useKanbanBoard() {
     setEditedTitle("");
   };
 
-   // Drag logic
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-    if (!over) return;
-
-    const activeId = active.id;
-    const overId = over.id;
-    if (activeId === overId) return;
-
-    let movedTask = null;
-    let sourceColumnId = null;
-    let destinationColumnId = null;
-
-    // Remove from source column
-    const tempColumns = columns.map((column) => {
-      const taskIndex = column.tasks.findIndex(
-        (task) => task.id === activeId
-      );
-
-      if (taskIndex !== -1) {
-        movedTask = column.tasks[taskIndex];
-        sourceColumnId = column.id;
-        return {
-          ...column,
-          tasks: column.tasks.filter((task) => task.id !== activeId),
-        };
-      }
-      return column;
-    });
-
-    // Find destination column
-    tempColumns.forEach((column) => {
-      if (column.tasks.some((task) => task.id === overId)) {
-        destinationColumnId = column.id;
-      }
-    });
-
-    const targetColumnId = destinationColumnId || sourceColumnId;
-
-    const finalColumns = tempColumns.map((column) => {
-      if (column.id === targetColumnId) {
-        return {
-          ...column,
-          tasks: [...column.tasks, movedTask],
-        };
-      }
-      return column;
-    });
-
-    setColumns(finalColumns);
-  };
-
-
 
     return {
         columns,
@@ -167,7 +114,6 @@ export function useKanbanBoard() {
         handleDeleteTask,
         handleEditClick,
         handleSaveEdit,
-        handleDragEnd,
     };
 }
 

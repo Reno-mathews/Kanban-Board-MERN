@@ -167,7 +167,6 @@ export function useKanbanBoard() {
         handleDeleteTask,
         handleEditClick,
         handleSaveEdit,
-        handleDragEnd,
     };
 }
 
