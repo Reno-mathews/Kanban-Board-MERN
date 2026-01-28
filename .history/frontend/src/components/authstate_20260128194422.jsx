@@ -29,9 +29,8 @@ const signup = async (email, password) => {
 
     if (!res.ok) {
         throw new Error(data.message || "Signup failed");
-    }
+
     localStorage.setItem("token", data.token);
     return data.user;
-};
-
-export { login, signup };
+    }
+}

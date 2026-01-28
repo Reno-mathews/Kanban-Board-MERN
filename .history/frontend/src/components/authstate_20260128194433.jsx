@@ -33,5 +33,3 @@ const signup = async (email, password) => {
     localStorage.setItem("token", data.token);
     return data.user;
 };
-
-export { login, signup };
