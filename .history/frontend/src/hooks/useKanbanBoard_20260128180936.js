@@ -36,12 +36,7 @@ export function useKanbanBoard() {
             { id: "in-progress", title: "In Progress", tasks: []},
             { id: "done", title: "Done", tasks: []},
           ];
-
-          task.forEach((task) => {
-            const column = updatedColumns.find
-          })
         }
-
       }
     })
     const handleAddTask = () => {
