@@ -18,7 +18,7 @@ function App() {
   };
 
   return (
-      <div className="min-h-screen bg-gray-900 text-white">
+      <div className="nin-h-screen bg-gray-900 text-white">
         {user ? (
           <div>
           <Header />
