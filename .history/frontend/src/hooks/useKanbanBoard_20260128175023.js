@@ -2,10 +2,25 @@ import { useState, useEffect } from "react";
 
 export function useKanbanBoard() {
     const [columns, setColumns] = useState([
-        { id: "todo", title: "To Do", tasks: [] },
-        { id: "in-prog"}
-
-        }
+        {
+            id: 1,
+            title: "To Do",
+            tasks: [
+                { id: 1, title: "Study React" },
+                { id: 2, title: "Study Express" },
+            ],
+        },
+        {
+            id: 2,
+            title: "In Progress",
+            tasks: [{ id: 3, title: "Build Kanban UI" }],
+        },
+        {
+            id: 3,
+            title: "Done",
+            tasks: [{ id: 4, title: "Setup project "}],
+        },
+    ]);
 
     const [searchQuery, setSearchQuery] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
