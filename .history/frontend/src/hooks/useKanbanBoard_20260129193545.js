@@ -36,26 +36,10 @@ export function useKanbanBoard() {
         ];
 
         tasks.forEach((task) => {
-          const column = updatedColumns.find(
-            (col) => col.id === task.column
-          );
-          if (column) {
-            column.tasks.push({
-              id: task._id,
-              title: task.title,
-            });
-          }
-        });
-
-        setColumns(updatedColumns);
-      } catch (err) {
-        console.error("Failed to fetch tasks", err);
+          const column = 
+        })
       }
-    };
-
-    useEffect(() => {
-      fetchTasks();
-    }, []);
+    }
     const handleAddTask = async () => {
       if(!newTaskTitle.trim()) return;
 
