@@ -155,18 +155,10 @@ setLastDeletedTask(null);
       );
 
       if (!res.ok) {
-        throw new Error("Failed to update task");
+        throw new Error("Failed)
       }
-
-      await fetchTasks();
-
-      setIsEditModalOpen(false);
-      setTaskBeingEdited(null);
-      setEditedTitle("");
-    } catch (err) {
-      console.error(err);
     }
-  };
+  }
 
    // Drag logic
   const handleDragEnd = (event) => {
