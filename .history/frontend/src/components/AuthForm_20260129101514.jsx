@@ -53,12 +53,11 @@ function AuthForm ({
                             </button>
                     </form>
 
-                    <p className="text-center text-sm text-gray-400 mt-6">
-                        {isSignup? "Already have an account?" : "Don't have an account"}{" "}
-                        <button
-                            type="button" 
+                    <p className="text-center">
+                        {isSignup? "Already have an account?" : "Don't have an account"}
+                        <button 
+                            className=""
                             onClick={() => setIsSignUp(!isSignup)}
-                            className="text-blue-400 hover:underline ml-1"
                         >
                             {isSignup? "Login" : "Signup"}
                         </button>

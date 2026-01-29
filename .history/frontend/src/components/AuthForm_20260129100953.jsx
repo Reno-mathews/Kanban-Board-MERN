@@ -46,19 +46,18 @@ function AuthForm ({
                         </div>
 
                             <button 
+                                className=""
                                 type="submit"
-                                className="w-full mt-4 py-2 rounded-md bg-blue-600 hover:bg-blue-700 transition font-semibold"
                                 >
                                     {isSignup ? "Signup": "Login"}
                             </button>
                     </form>
 
-                    <p className="text-center text-sm text-gray-400 mt-6">
-                        {isSignup? "Already have an account?" : "Don't have an account"}{" "}
-                        <button
-                            type="button" 
+                    <p className="text-center">
+                        {isSignup? "Already have an account?" : "Don't have an account"}
+                        <button 
+                            className=""
                             onClick={() => setIsSignUp(!isSignup)}
-                            className="text-blue-400 hover:underline ml-1"
                         >
                             {isSignup? "Login" : "Signup"}
                         </button>
