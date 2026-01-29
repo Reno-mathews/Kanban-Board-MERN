@@ -11,8 +11,8 @@ function AuthForm ({
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-900">
             <div className="w-full max-w-md bg-gray-800 p-8 rounded-xl shadow-lg">
-                <h2 className="text-2xl font-bold text-center mb-2">
-                    { isSignup ? "Create an account" : "Welcome back"}
+                <h2 className="text-2xl font-bold text-center">
+                    { isSignup ? "Signup" : "Login"}
                 </h2>
 
                     <form
