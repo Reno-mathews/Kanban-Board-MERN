@@ -60,7 +60,7 @@ function AuthForm ({
                             onClick={() => setIsSignUp(!isSignup)}
                             className="text-blue-400 hover:underline ml-1"
                         >
-                            {isSignup? "Log in" : "Sign up"}
+                            {isSignup? "Login" : "Signup"}
                         </button>
                     </p>
             </div>
