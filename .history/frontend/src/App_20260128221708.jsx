@@ -9,7 +9,7 @@ function App() {
   const[isSignup, setIsSignUp] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  
   const handleLogin = async (email, password) => {
     const user = await login(email, password);
     setUser(user);
@@ -29,12 +29,12 @@ function App() {
         </div>
         ) : (
           <AuthForm
-            isSignup={isSignUp}
-            setIsSignUp={setIsSignUp}
-            email={email}
-            setEmail={setEmail}
-            password={password}
-            setPassword={setPassword}
+            isSignup={false}
+            setIsSignUp={() => {}}
+            email={""}
+            setEmail={() => {}}
+            password={""}
+            setPassword={() => {}}
             onLogin={handleLogin}
             onSignup={handleSignup}
           />
