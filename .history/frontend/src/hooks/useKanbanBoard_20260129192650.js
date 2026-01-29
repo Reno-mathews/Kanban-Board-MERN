@@ -17,7 +17,46 @@ export function useKanbanBoard() {
     const [editedTitle, setEditedTitle] = useState("");
     const [lastDeletedTask, setLastDeletedTask] = useState(null);
 
+    useEffect(() => {
+      const fetchTasks = async() => {
+        try {
+          const token = localStorage.getItem("token");
+
+          const res = await fetch("http://localhost:5000/api/tasks", {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          const tasks = await res.json();
+
+          // Group tasks by column
+          const updatedColumns = [
+            { id: "todo", title: "To Do", tasks: []},
+            { id: "in-progress", title: "In Progress", tasks: []},
+            { id: "done", title: "Done", tasks: []},
+          ];
+
+          tasks.forEach((task) => {
+            const column = updatedColumns.find(
+              (col) => col.id === task.column
+            );
+            if (column) {
+              column.tasks.push({
+                id: task._id,
+                title: task.title,
+              });
+            }
+          });
+
+          setColumns(updatedColumns);
+        } catch (err) {
+          console.error("Failed to fetch tasks", err);
+        }
+      }
     
+    fetchTasks();
+}, []);
     const handleAddTask = async () => {
       if(!newTaskTitle.trim()) return;
 
