@@ -29,7 +29,7 @@ function Board() {
     handleEditClick,
     handleSaveEdit,
     handleDragEnd,
-    lastDeletedTask
+    lastDeletedTask,
   } = useKanbanBoard();
   
 
