@@ -183,12 +183,6 @@ export function useKanbanBoard() {
     }
   };
 
-  const handleEditClick = (task) => {
-    setTaskBeingEdited(task);
-    setEditedTitle(task.title);
-    setIsEditModalOpen(true);
-  };
-
 
 
     return {
