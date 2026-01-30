@@ -147,40 +147,55 @@ export function useKanbanBoard() {
   };
 
    // Drag logic
-  const handleDragEnd = async (event) => {
+  const handleDragEnd = (event) => {
     const { active, over } = event;
     if (!over) return;
 
-    const taskId = active.id;
-    const targetColumnId = over.id;
+    const activeId = active.id;
+    const overId = over.id;
+    if (activeId === overId) return;
 
-    if (!taskId || !targetColumnId) return;
+    let movedTask = null;
+    let sourceColumnId = null;
+    let destinationColumnId = null;
 
-    try {
-      const token = localStorage.getItem("token");
-
-      const res = await fetch(
-        `http://localhost:5000/api/tasks/${taskId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            column: targetColumnId,
-          }),
-        }
+    // Remove from source column
+    const tempColumns = columns.map((column) => {
+      const taskIndex = column.tasks.findIndex(
+        (task) => task.id === activeId
       );
 
-      if (!res.ok) {
-        throw new Error("Failed to move task");
+      if (taskIndex !== -1) {
+        movedTask = column.tasks[taskIndex];
+        sourceColumnId = column.id;
+        return {
+          ...column,
+          tasks: column.tasks.filter((task) => task.id !== activeId),
+        };
       }
+      return column;
+    });
 
-      await fetchTasks();
-    } catch(err) {
-      console.error("Drag update failed", err);
-    }
+    // Find destination column
+    tempColumns.forEach((column) => {
+      if (column.tasks.some((task) => task.id === overId)) {
+        destinationColumnId = column.id;
+      }
+    });
+
+    const targetColumnId = destinationColumnId || sourceColumnId;
+
+    const finalColumns = tempColumns.map((column) => {
+      if (column.id === targetColumnId) {
+        return {
+          ...column,
+          tasks: [...column.tasks, movedTask],
+        };
+      }
+      return column;
+    });
+
+    setColumns(finalColumns);
   };
 
 

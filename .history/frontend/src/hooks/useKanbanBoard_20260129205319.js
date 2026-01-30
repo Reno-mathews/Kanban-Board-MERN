@@ -147,41 +147,7 @@ export function useKanbanBoard() {
   };
 
    // Drag logic
-  const handleDragEnd = async (event) => {
-    const { active, over } = event;
-    if (!over) return;
-
-    const taskId = active.id;
-    const targetColumnId = over.id;
-
-    if (!taskId || !targetColumnId) return;
-
-    try {
-      const token = localStorage.getItem("token");
-
-      const res = await fetch(
-        `http://localhost:5000/api/tasks/${taskId}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify({
-            column: targetColumnId,
-          }),
-        }
-      );
-
-      if (!res.ok) {
-        throw new Error("Failed to move task");
-      }
-
-      await fetchTasks();
-    } catch(err) {
-      console.error("Drag update failed", err);
-    }
-  };
+  const handleDragEnd = 
 
 
 
