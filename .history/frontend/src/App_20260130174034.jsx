@@ -10,14 +10,6 @@ function App() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setUser({ token });
-    }
-
-  }, []);
-
   const handleLogin = async (email, password) => {
     const user = await login(email, password);
     setUser(user);
