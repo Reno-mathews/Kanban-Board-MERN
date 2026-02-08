@@ -91,6 +91,13 @@ All user permissions
 
 Delete tasks
 
+Screenshots 
+
+<img width="1280" height="731" alt="kanban1" src="https://github.com/user-attachments/assets/26432e12-44bc-465d-952e-2c8bd8c34c42" />
+
+<img width="1888" height="885" alt="kanban2" src="https://github.com/user-attachments/assets/095b6f7b-e880-4e04-86d9-36eac1b7b158" />
+
+
 🧠 What I Learned
 
 Implementing JWT authentication end-to-end
