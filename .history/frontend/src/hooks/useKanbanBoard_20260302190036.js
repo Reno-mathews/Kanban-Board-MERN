@@ -36,10 +36,27 @@ export function useKanbanBoard() {
         ];
 
         tasks.forEach((task) => {
-          const column = 
-        })
+          const column = updatedColumns.find(
+            (col) => col.id === task.column
+          );
+          if (column) {
+            column.tasks.push({
+              id: task._id,
+              title: task.title,
+            });
+          }
+        });
+
+        setColumns(updatedColumns);
+      } catch (err) {
+        console.error("Failed to fetch tasks", err);
       }
-    }
+    };
+
+    useEffect(() => {
+      fetchTasks();
+    }, []);
+
     const handleAddTask = async () => {
       if(!newTaskTitle.trim()) return;
 
@@ -71,120 +88,105 @@ export function useKanbanBoard() {
       }
     };
 
-    const handleDeleteTask = (taskId) => {
-        let deletedTask = null;
-        let sourceColumnId = null;
+   const handleDeleteTask = async (taskId) => {
+    try {
+      const token = localStorage.getItem("token");
 
-        setColumns((prev) =>
-        prev.map((column) => {
-            const task = column.tasks.find((t) => t.id === taskId);
-            if (task) {
-                deletedTask = task;
-                sourceColumnId=column.id;
-            }
+      const res = await fetch(
+        `http://localhost:5000/api/tasks/${taskId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
-            return {
-                ...column,
-                tasks: column.tasks.filter((t) => t.id !== taskId),
-            };
-        })
-    );
+      if (!res.ok) {
+        throw new Error("Failed to delete task");
+      }
 
-    setLastDeletedTask({
-        task: deletedTask,
-        columnId: sourceColumnId,
-    });
-    };
-
-    const undoDelete = () => {
-        if(!lastDeletedTask) return;
-
-        const { task, columnId } = lastDeletedTask;
-
-        setColumns((prev) =>
-        prev.map((column) =>
-            column.id === columnId
-        ? {...column, tasks: [...column.tasks, task]}
-    : column
-)
-);
-setLastDeletedTask(null);
+      await fetchTasks();
+    } catch (err){
+      console.error(err);
     }
+   }
+
+  const handleSaveEdit = async() => {
+    if (!editedTitle.trim() || !taskBeingEdited) return;
+
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(
+        `http://localhost:5000/api/tasks/${taskBeingEdited.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            title: editedTitle,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to update task");
+      }
+
+      await fetchTasks();
+
+      setIsEditModalOpen(false);
+      setTaskBeingEdited(null);
+      setEditedTitle("");
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+   // Drag logic
+  const handleDragEnd = async (event) => {
+    const { active, over } = event;
+    if (!over) return;
+
+    const taskId = active.id;
+    const targetColumnId = over.id;
+
+    if (!taskId || !targetColumnId) return;
+
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(
+        `https://study-analytics-mern.onrender.com/api/tasks/${taskId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            column: targetColumnId,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to move task");
+      }
+
+      await fetchTasks();
+    } catch(err) {
+      console.error("Drag update failed", err);
+    }
+  };
 
   const handleEditClick = (task) => {
     setTaskBeingEdited(task);
     setEditedTitle(task.title);
     setIsEditModalOpen(true);
-  };
-
-  const handleSaveEdit = () => {
-    if (!editedTitle.trim()) return;
-
-    const updatedColumns = columns.map((column) => ({
-      ...column,
-      tasks: column.tasks.map((task) => 
-      task.id === taskBeingEdited.id
-    ? { ...task, title: editedTitle }
-  : task
-),
-    }));
-
-    setColumns(updatedColumns);
-    setIsEditModalOpen(false);
-    setTaskBeingEdited(null);
-    setEditedTitle("");
-  };
-
-   // Drag logic
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-    if (!over) return;
-
-    const activeId = active.id;
-    const overId = over.id;
-    if (activeId === overId) return;
-
-    let movedTask = null;
-    let sourceColumnId = null;
-    let destinationColumnId = null;
-
-    // Remove from source column
-    const tempColumns = columns.map((column) => {
-      const taskIndex = column.tasks.findIndex(
-        (task) => task.id === activeId
-      );
-
-      if (taskIndex !== -1) {
-        movedTask = column.tasks[taskIndex];
-        sourceColumnId = column.id;
-        return {
-          ...column,
-          tasks: column.tasks.filter((task) => task.id !== activeId),
-        };
-      }
-      return column;
-    });
-
-    // Find destination column
-    tempColumns.forEach((column) => {
-      if (column.tasks.some((task) => task.id === overId)) {
-        destinationColumnId = column.id;
-      }
-    });
-
-    const targetColumnId = destinationColumnId || sourceColumnId;
-
-    const finalColumns = tempColumns.map((column) => {
-      if (column.id === targetColumnId) {
-        return {
-          ...column,
-          tasks: [...column.tasks, movedTask],
-        };
-      }
-      return column;
-    });
-
-    setColumns(finalColumns);
   };
 
 
@@ -212,7 +214,6 @@ setLastDeletedTask(null);
         handleSaveEdit,
         handleDragEnd,
         lastDeletedTask,
-        undoDelete,
     };
 }
 

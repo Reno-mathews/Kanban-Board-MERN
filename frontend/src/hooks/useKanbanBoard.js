@@ -21,7 +21,7 @@ export function useKanbanBoard() {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:5000/api/tasks", {
+        const res = await fetch("https://study-analytics-mern.onrender.com/api/tasks", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -63,7 +63,7 @@ export function useKanbanBoard() {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await fetch("http://localhost:5000/api/tasks", {
+        const res = await fetch("https://study-analytics-mern.onrender.com/api/tasks", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -93,7 +93,7 @@ export function useKanbanBoard() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/api/tasks/${taskId}`,
+        `https://study-analytics-mern.onrender.com/api/tasks/${taskId}`,
         {
           method: "DELETE",
           headers: {
@@ -119,7 +119,7 @@ export function useKanbanBoard() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/api/tasks/${taskBeingEdited.id}`,
+        `https://study-analytics-mern.onrender.com/api/tasks/${taskBeingEdited.id}`,
         {
           method: "PUT",
           headers: {
@@ -160,7 +160,7 @@ export function useKanbanBoard() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/api/tasks/${taskId}`,
+        `https://study-analytics-mern.onrender.com/api/tasks/${taskId}`,
         {
           method: "PUT",
           headers: {

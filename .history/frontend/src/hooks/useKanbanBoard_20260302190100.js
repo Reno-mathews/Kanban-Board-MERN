@@ -93,11 +93,22 @@ export function useKanbanBoard() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/api/tasks/${taskId}`,
+        `https://study-analytics-mern.onrender.com/api/tasks/${taskId}`,
         {
-          method: ""
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      )
+      );
+
+      if (!res.ok) {
+        throw new Error("Failed to delete task");
+      }
+
+      await fetchTasks();
+    } catch (err){
+      console.error(err);
     }
    }
 
@@ -108,7 +119,7 @@ export function useKanbanBoard() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `http://localhost:5000/api/tasks/${taskBeingEdited.id}`,
+        `https://study-analytics-mern.onrender.com/api/tasks/${taskBeingEdited.id}`,
         {
           method: "PUT",
           headers: {
@@ -136,55 +147,46 @@ export function useKanbanBoard() {
   };
 
    // Drag logic
-  const handleDragEnd = (event) => {
+  const handleDragEnd = async (event) => {
     const { active, over } = event;
     if (!over) return;
 
-    const activeId = active.id;
-    const overId = over.id;
-    if (activeId === overId) return;
+    const taskId = active.id;
+    const targetColumnId = over.id;
 
-    let movedTask = null;
-    let sourceColumnId = null;
-    let destinationColumnId = null;
+    if (!taskId || !targetColumnId) return;
 
-    // Remove from source column
-    const tempColumns = columns.map((column) => {
-      const taskIndex = column.tasks.findIndex(
-        (task) => task.id === activeId
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await fetch(
+        `https://study-analytics-mern.onrender.com/api/tasks/${taskId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            column: targetColumnId,
+          }),
+        }
       );
 
-      if (taskIndex !== -1) {
-        movedTask = column.tasks[taskIndex];
-        sourceColumnId = column.id;
-        return {
-          ...column,
-          tasks: column.tasks.filter((task) => task.id !== activeId),
-        };
+      if (!res.ok) {
+        throw new Error("Failed to move task");
       }
-      return column;
-    });
 
-    // Find destination column
-    tempColumns.forEach((column) => {
-      if (column.tasks.some((task) => task.id === overId)) {
-        destinationColumnId = column.id;
-      }
-    });
+      await fetchTasks();
+    } catch(err) {
+      console.error("Drag update failed", err);
+    }
+  };
 
-    const targetColumnId = destinationColumnId || sourceColumnId;
-
-    const finalColumns = tempColumns.map((column) => {
-      if (column.id === targetColumnId) {
-        return {
-          ...column,
-          tasks: [...column.tasks, movedTask],
-        };
-      }
-      return column;
-    });
-
-    setColumns(finalColumns);
+  const handleEditClick = (task) => {
+    setTaskBeingEdited(task);
+    setEditedTitle(task.title);
+    setIsEditModalOpen(true);
   };
 
 
@@ -212,7 +214,6 @@ export function useKanbanBoard() {
         handleSaveEdit,
         handleDragEnd,
         lastDeletedTask,
-        undoDelete,
     };
 }
 
