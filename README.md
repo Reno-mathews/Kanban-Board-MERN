@@ -3,6 +3,8 @@
 A full-stack Kanban board application built with React, Node.js, Express, and MongoDB.
 The app supports authentication, role-based access control, and persistent task management with drag-and-drop functionality.
 
+🌐 Live Demo: https://kanban-board-mern.vercel.app/
+
 This project was built to practice real-world full-stack development patterns, including protected APIs, JWT authentication, and backend-driven state.
 
 ✨ Features
