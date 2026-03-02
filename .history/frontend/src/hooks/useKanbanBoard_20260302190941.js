@@ -160,7 +160,7 @@ export function useKanbanBoard() {
       const token = localStorage.getItem("token");
 
       const res = await fetch(
-        `https://kanban-board-mern.onrender.com/api/tasks/${taskId}`,
+        `https://study-analytics-mern.onrender.com/api/tasks/${taskId}`,
         {
           method: "PUT",
           headers: {
